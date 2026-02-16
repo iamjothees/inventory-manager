@@ -1,0 +1,22 @@
+services:
+  app:
+    container_name: inv-man
+    image: inv-man:latest
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 8000:80
+    working_dir: /var/www/html
+  db:
+    container_name: inv-man-db
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: inv-man
+      MYSQL_USER: inv-man
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    ports:
+      - "8001:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+volumes:
+  db-data:
