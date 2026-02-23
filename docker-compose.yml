@@ -3,9 +3,12 @@ services:
     container_name: inv-man
     image: inv-man:latest
     volumes:
-      - ./src:/var/www/html
+      - ./backend:/var/www/html
+      - ./frontend:/app
     ports:
       - 8000:80
+      - 5173:5173
+      - 4173:4173
     working_dir: /var/www/html
   db:
     container_name: inv-man-db
