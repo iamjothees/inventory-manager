@@ -24,3 +24,13 @@ Type of items
         - By expiry
             - Perishable (Expirable)
             - Non-Perishable
+
+
+
+Feature
+    - AI powered inventory management
+        - natural language queries / reports with custom RAG system for AI models
+        - reads purchase orders, invoices, delivery challans, etc. and updates inventory and creates invoices / receipts
+        - reads purchase orders, invoices, delivery challans, etc. and updates inventory and creates digital trails [https://gemini.google.com/share/de9ce4a515f6]
+        - (Advanced feat) In house model for data privacy
+        - 

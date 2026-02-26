@@ -23,7 +23,7 @@ function Locations() {
                             line2: 'Line 2 ' + index,
                             city: 'City ' + index,
                             state: 'State ' + index,
-                            zip: 'Zip ' + index,
+                            zipcode: 'Zip ' + index,
                             country: 'Country ' + index,
                             coordinates: {
                                 latitude: '11.030480326783893',
@@ -76,7 +76,7 @@ function LocationCard({ location }) {
                             <span className='font-medium'>Address</span>
                             <span className='text-muted-foreground text-xs'>
                                 {location.address.line1}, {location.address.line2}<br />
-                                {location.address.city}, {location.address.state} {location.address.zip}<br />
+                                {location.address.city}, {location.address.state} {location.address.zipcode}<br />
                                 {location.address.country}
                             </span>
                             <a

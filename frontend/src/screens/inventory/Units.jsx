@@ -22,7 +22,6 @@ function Units() {
                             unit: {
                                 name: 'Unit C' + index + 1,
                                 shortCode: 'UNITC' + index,
-                                icon: <IceCream2 size={32} />,
                             },
                             value: 10 * index,
                         }, {

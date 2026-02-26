@@ -10,30 +10,80 @@ return new class extends Migration {
      */
     public function up(): void
     {
+        Schema::create("addresses", function (Blueprint $table) {
+            $table->id();
+            $table->morphs("addressable", 'a_index');
+            $table->string("name");
+            $table->string("line1");
+            $table->string("line2")->nullable();
+            $table->string("city");
+            $table->string("state");
+            $table->string("zipcode");
+            $table->string("country");
+            $table->json("coordinates")->nullable();
+            $table->timestamps();
+        });
+
+        // locations
+
         Schema::create("locations", function (Blueprint $table) {
             $table->id();
+            $table->foreignId("address_id")->constrained()->restrictOnDelete();
             $table->string("name");
             $table->string("code");
             $table->timestamps();
         });
 
+        Schema::create("location_contact_persons", function (Blueprint $table) {
+            $table->primary("location_id", "contact_person_id");
+            $table->foreignId("location_id")->constrained()->restrictOnDelete();
+            $table->foreignId("contact_person_id")->constrained("users")->restrictOnDelete();
+            $table->timestamps();
+        });
+
+        // units
+
         Schema::create("units", function (Blueprint $table) {
             $table->id();
             $table->string("standard_unit")->nullable();
-            $table->string("name");
-            $table->string("code");
+            $table->string("name")->unique();
+            $table->string("short_code")->unique();
+            $table->string("icon");
             $table->unsignedTinyInteger("decimal_precision")->default(0);
+            $table->timestamps();
+        });
+
+        Schema::create("unit_conversions", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("unit_id")->constrained()->restrictOnDelete();
+            $table->foreignId("to_unit_id")->constrained("units")->restrictOnDelete();
+            $table->unsignedInteger("value")->comment("1 unit = [value] to_unit");
+            $table->enum("precision", ["exact", "approx"])->default("exact");
             $table->timestamps();
         });
 
         Schema::create("items", function (Blueprint $table) {
             $table->id();
-            $table->string("type")->default("inventory");
-            $table->foreignId("base_id")->nullable()
-                ->constrained('items')->restrictOnDelete();
+            $table->string("type")->default("inventory")->index(); // inventory, service, kit
+            $table->foreignId("base_item_id")
+                ->comment("kit_id for kit items, base_item_id for variant items")
+                ->nullable()
+                ->constrained('items')
+                ->restrictOnDelete();
             $table->string("name");
-            $table->string("slug");
+            $table->string("slug")->unique();
             $table->string("image")->nullable();
+            $table->foreignId("unit_id")->constrained()->restrictOnDelete();
+            $table->unsignedInteger("shelf_life")->nullable()->comment("in hours");
+            $table->timestamps();
+        });
+
+        Schema::create("item_unit_conversions", function (Blueprint $table) {
+            $table->id();
+            $table->foreignId("item_id")->constrained()->restrictOnDelete();
+            $table->foreignId("unit_id")->constrained()->restrictOnDelete();
+            $table->unsignedInteger("value")->comment("1 base_unit = [value] unit");
+            $table->enum("precision", ["exact", "approx"])->default("exact");
             $table->timestamps();
         });
 
@@ -65,8 +115,12 @@ return new class extends Migration {
     {
         Schema::dropIfExists("inventory_transactions");
         Schema::dropIfExists("inventories");
+        Schema::dropIfExists("item_unit_conversions");
         Schema::dropIfExists("items");
+        Schema::dropIfExists("unit_conversions");
         Schema::dropIfExists("units");
+        Schema::dropIfExists("location_contact_persons");
         Schema::dropIfExists("locations");
+        Schema::dropIfExists("addresses");
     }
 };
