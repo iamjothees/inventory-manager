@@ -10,20 +10,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create("addresses", function (Blueprint $table) {
-            $table->id();
-            $table->morphs("addressable", 'a_index');
-            $table->string("name");
-            $table->string("line1");
-            $table->string("line2")->nullable();
-            $table->string("city");
-            $table->string("state");
-            $table->string("zipcode");
-            $table->string("country");
-            $table->json("coordinates")->nullable();
-            $table->timestamps();
-        });
-
         // locations
 
         Schema::create("locations", function (Blueprint $table) {
@@ -121,6 +107,5 @@ return new class extends Migration {
         Schema::dropIfExists("units");
         Schema::dropIfExists("location_contact_persons");
         Schema::dropIfExists("locations");
-        Schema::dropIfExists("addresses");
     }
 };

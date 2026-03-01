@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->loadMigrationsFrom(__DIR__ . "/../Address/database/migrations");
+        Relation::morphMap([
+            'user' => \App\Models\User::class,
+            'location' => \App\Models\Location::class,
+        ]);
     }
 }
