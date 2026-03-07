@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("code");
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create("location_contact_persons", function (Blueprint $table) {
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->foreignId("location_id")->constrained()->restrictOnDelete();
             $table->foreignId("contact_person_id")->constrained("users")->restrictOnDelete();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

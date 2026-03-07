@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string("country");
             $table->json("coordinates")->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
