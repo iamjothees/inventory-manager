@@ -3,6 +3,7 @@
 namespace App\Address\Models;
 
 use App\Address\Database\Factories\AddressFactory;
+use App\Address\Enums\OwnerTypeEnum;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,12 +26,21 @@ class Address extends Model
     ];
 
     protected $casts = [
-        'coordinates' => AsArrayObject::class, 
+        'addressable_type' => OwnerTypeEnum::class,
+        'coordinates' => 'array', 
     ];
 
     protected static function newFactory()
     {
         return AddressFactory::new();
+    }
+
+    public function getOwnerAttrubute(): array{
+        return [
+            'id' => $this->addressable_id,
+            'type' => $this->addressable_type,
+
+        ];
     }
 
     public function addressable(): MorphTo

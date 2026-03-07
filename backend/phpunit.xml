@@ -8,6 +8,9 @@
         <testsuite name="Address">
             <directory suffix="Test.php">./app/Address/Tests</directory>
         </testsuite>
+        <testsuite name="Location">
+            <directory suffix="Test.php">./app/Location/Tests</directory>
+        </testsuite>
         
         <testsuite name="Unit">
             <directory>tests/Unit</directory>

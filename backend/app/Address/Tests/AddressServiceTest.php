@@ -2,10 +2,10 @@
 
 namespace App\Address\Tests;
 
-use App\Address\Dto\AddressDTO;
 use App\Address\Dto\CreateAddressDTO;
 use App\Address\Dto\DeleteAddressDTO;
 use App\Address\Dto\UpdateAddressDTO;
+use App\Address\Enums\OwnerTypeEnum;
 use App\Address\Models\Address;
 use App\Models\User;
 use App\Address\Services\AddressService;
@@ -19,9 +19,9 @@ beforeEach(function () {
 });
 
 test('create address', function () {
-    $addressDTO = $this->addressService->createAddress(CreateAddressDTO::from([
+    $address = $this->addressService->createAddress(CreateAddressDTO::from([
         'addressable_id' => 1,
-        'addressable_type' => 'user',
+        'addressable_type' => OwnerTypeEnum::from('user'),
         'line1' => '123 Main St',
         'line2' => 'Apt 4B',
         'city' => 'New York',
@@ -29,13 +29,13 @@ test('create address', function () {
         'zipcode' => '10001',
         'country' => 'USA',
     ]));
-    expect($addressDTO)->toBeInstanceOf(AddressDTO::class);
+    expect($address)->toBeInstanceOf(Address::class);
 });
 
 test('create address with coordinates', function () {
-    $addressDTO = $this->addressService->createAddress(CreateAddressDTO::from([
+    $address = $this->addressService->createAddress(CreateAddressDTO::from([
         'addressable_id' => 1,
-        'addressable_type' => 'user',
+        'addressable_type' => OwnerTypeEnum::from('user'),
         'line1' => '123 Main St',
         'line2' => 'Apt 4B',
         'city' => 'New York',
@@ -46,8 +46,9 @@ test('create address with coordinates', function () {
             'latitude' => 40.7128,
             'longitude' => -74.0060,
         ],
-    ]));
-    expect($addressDTO)->toBeInstanceOf(AddressDTO::class);
+    ]), 1, 'user');
+    expect($address)->toBeInstanceOf(Address::class);
+    expect($address->coordinates)->toBeArray();
 });
 
 test('update address', function () {
@@ -56,10 +57,10 @@ test('update address', function () {
                     ->create()->addresses->first();
     $address->country = 'India';
     $dto = UpdateAddressDTO::from($address);
-    $addressDTO = $this->addressService->updateAddress($dto);
+    $address = $this->addressService->updateAddress($dto);
     
-    expect($addressDTO)->toBeInstanceOf(AddressDTO::class);
-    expect($addressDTO->country)->toBe('India');
+    expect($address)->toBeInstanceOf(Address::class);
+    expect($address->country)->toBe('India');
 });
 
 test('delete address', function () {

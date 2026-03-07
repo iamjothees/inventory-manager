@@ -3,31 +3,37 @@
 namespace App\Address\Services;
 
 use App\Address\Dto\AddressDTO;
+use App\Address\Dto\AttachAddressDTO;
 use App\Address\Dto\CreateAddressDTO;
 use App\Address\Dto\DeleteAddressDTO;
 use App\Address\Dto\UpdateAddressDTO;
+use App\Address\Enums\OwnerTypeEnum;
 use App\Address\Models\Address;
 
 class AddressService
 {
-    public function getAllAddresses(){
-        return Address::all();
+    public function createAddress(CreateAddressDTO $createAddressDTO): Address{
+        return Address::create($createAddressDTO->toArray());
     }
 
-    public function createAddress(CreateAddressDTO $createAddressDTO): AddressDTO{
-        $address = Address::create($createAddressDTO->toArray());
-        return AddressDTO::from($address);
+    public function attachAddress(AttachAddressDTO $attachAddressDTO, int $attachable_id, string $attachable_type): Address{
+        $attachable_type = OwnerTypeEnum::from($attachable_type);
+        return $this->createAddress(CreateAddressDTO::from([
+            'addressable_id' => $attachable_id,
+            'addressable_type' => $attachable_type,
+            ...$attachAddressDTO->toArray()
+        ]));
     }
 
-    public function updateAddress(UpdateAddressDTO $updateAddressDTO): AddressDTO{
-        $address = Address::make($updateAddressDTO->toArray());
-        $address->id = $updateAddressDTO->id;
-        $address->update();
-        return AddressDTO::from($address);
+    public function updateAddress(UpdateAddressDTO $updateAddressDTO): Address
+    {
+        $address = Address::find($updateAddressDTO->id);
+        $address->update($updateAddressDTO->toArray());
+        return $address;
     }
 
-    public function deleteAddress(DeleteAddressDTO $deleteAddressDTO): void{
-        $address = Address::find($deleteAddressDTO->id);
-        $address->delete();
+    public function deleteAddress(DeleteAddressDTO $deleteAddressDTO): void
+    {
+        Address::find($deleteAddressDTO->id)->delete();
     }
 }

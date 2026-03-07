@@ -10,23 +10,6 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        // locations
-
-        Schema::create("locations", function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("address_id")->constrained()->restrictOnDelete();
-            $table->string("name");
-            $table->string("code");
-            $table->timestamps();
-        });
-
-        Schema::create("location_contact_persons", function (Blueprint $table) {
-            $table->primary("location_id", "contact_person_id");
-            $table->foreignId("location_id")->constrained()->restrictOnDelete();
-            $table->foreignId("contact_person_id")->constrained("users")->restrictOnDelete();
-            $table->timestamps();
-        });
-
         // units
 
         Schema::create("units", function (Blueprint $table) {

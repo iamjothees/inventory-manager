@@ -2,7 +2,7 @@
 
 namespace App\Address\Enums;
 
-enum AddressableTypeEnum: string
+enum OwnerTypeEnum: string
 {
     case USER = 'user';
     case LOCATION = 'location';

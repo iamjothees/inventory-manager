@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    private $domains;
     /**
      * Register any application services.
      */
@@ -20,7 +21,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . "/../Address/database/migrations");
+        $this->domains = collect([
+            'Address',
+            'Location',
+        ]);
+        $this->domains->each(function ($domain) {
+            $this->loadMigrationsFrom(__DIR__ . "/../{$domain}/Database/Migrations");
+        });
         Relation::morphMap([
             'user' => \App\Models\User::class,
             'location' => \App\Models\Location::class,
