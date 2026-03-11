@@ -10,6 +10,7 @@ class CreateLocationDTO extends Data
     public function __construct(
         public string $name,
         public string $code,
-        public AttachAddressDTO $address
+        public AttachAddressDTO $address,
+        public CreateOrAttachContactPersonsDTO $contactPersonsDto = new CreateOrAttachContactPersonsDTO([])
     ) { }
 }

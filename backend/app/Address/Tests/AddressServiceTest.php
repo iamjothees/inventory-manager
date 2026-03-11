@@ -68,5 +68,5 @@ test('delete address', function () {
                     ->has(Address::factory())
                     ->create()->addresses->first();
     $this->addressService->deleteAddress(DeleteAddressDTO::from($address));
-    expect($address->fresh())->toBeNull();
+    expect(Address::find($address->id))->toBeNull();
 });

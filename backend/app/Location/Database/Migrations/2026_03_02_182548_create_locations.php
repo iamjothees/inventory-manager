@@ -19,10 +19,17 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::create("location_contact_persons", function (Blueprint $table) {
-            $table->primary("location_id", "contact_person_id");
+        Schema::create("contact_persons", function (Blueprint $table) {
+            $table->id();
+            $table->string("name");
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create("location_contact_person", function (Blueprint $table) {
+            $table->primary(["location_id", "contact_person_id"]);
             $table->foreignId("location_id")->constrained()->restrictOnDelete();
-            $table->foreignId("contact_person_id")->constrained("users")->restrictOnDelete();
+            $table->foreignId("contact_person_id")->constrained('contact_persons')->restrictOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,7 +40,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists("location_contact_persons");
+        Schema::dropIfExists("location_contact_person");
+        Schema::dropIfExists("contact_persons");
         Schema::dropIfExists("locations");
     }
 };
