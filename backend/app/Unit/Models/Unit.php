@@ -28,4 +28,9 @@ class Unit extends Model
     {
         return UnitFactory::new();
     }
+
+    public function conversions()
+    {
+        return $this->hasMany(UnitConversion::class);
+    }
 }

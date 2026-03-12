@@ -12,6 +12,13 @@ class CreateUnitDTO extends Data
         public readonly string $name,
         public readonly string $short_code,
         public readonly string $icon,
-        public readonly int $decimal_precision
-    ) {}
+        public readonly int $decimal_precision,
+        public readonly array $conversions = [],
+    ) {
+        
+    }
+
+    public function toCreateConversionDTOs(int $unitId): array{
+        return array_map(fn($conversion) => CreateUnitConversionDTO::from([...$conversion, 'unit_id' => $unitId]), $this->conversions);
+    }
 }

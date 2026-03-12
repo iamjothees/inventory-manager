@@ -85,3 +85,28 @@ test('can delete unit conversion', function () {
 
     expect(UnitConversion::find($unitConversion->id))->toBeNull();
 });
+
+test('can create unit with conversions', function (){
+    $unit = $this->unitService->create(CreateUnitDTO::from([
+        'standard_unit' => 'kilogram',
+        'name' => 'Kilogram',
+        'short_code' => 'kg',
+        'icon' => 'kg',
+        'decimal_precision' => 2,
+        'conversions' => [
+            [
+                'to_unit_id' => Unit::factory()->create()->id,
+                'value' => 10,
+                'precision' => 'approx',
+            ],
+            [
+                'to_unit_id' => Unit::factory()->create()->id,
+                'value' => 50,
+                'precision' => 'exact',
+            ],
+        ],
+    ]));
+
+    expect($unit)->toBeInstanceOf(Unit::class);
+    expect($unit->conversions)->toHaveCount(2);
+});

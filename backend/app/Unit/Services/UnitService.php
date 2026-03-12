@@ -13,7 +13,13 @@ class UnitService
 {
     public function create(CreateUnitDTO $dto): Unit
     {
-        return Unit::create($dto->toArray());
+        $unit = Unit::create($dto->toArray());
+
+        foreach ($dto->toCreateConversionDTOs(unitId: $unit->id) as $conversionDto) {
+            $this->createConversion($conversionDto);
+        }
+
+        return $unit;
     }
 
     public function update(UpdateUnitDTO $dto): Unit

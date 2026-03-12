@@ -17,8 +17,8 @@ class UnitFactory extends Factory
     {
         return [
             "standard_unit"=> $this->faker->randomElement(StandardUnit::cases()),
-            "name"=> $this->faker->word,
-            "short_code"=> $this->faker->word,
+            "name" => $this->faker->unique()->word, 
+            "short_code" => $this->faker->unique()->lexify('???'), // Generates unique 3-letter strings
             "icon"=> $this->faker->word,
             "decimal_precision"=> $this->faker->numberBetween(0, 3),
         ];
