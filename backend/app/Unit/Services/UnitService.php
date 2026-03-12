@@ -8,9 +8,16 @@ use App\Unit\Dto\UpdateUnitConversionDTO;
 use App\Unit\Dto\UpdateUnitDTO;
 use App\Unit\Models\Unit;
 use App\Unit\Models\UnitConversion;
+use Illuminate\Database\Eloquent\Collection;
 
 class UnitService
 {
+
+    public function getUnits(): Collection
+    {
+        return Unit::all();
+    }
+
     public function create(CreateUnitDTO $dto): Unit
     {
         $unit = Unit::create($dto->toArray());

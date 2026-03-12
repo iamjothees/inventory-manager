@@ -7,6 +7,7 @@ use App\Unit\Dto\UpdateUnitDTO;
 use App\Unit\Models\Unit;
 use App\Unit\Models\UnitConversion;
 use App\Unit\Services\UnitService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -14,6 +15,14 @@ uses(TestCase::class, RefreshDatabase::class);
 
 beforeEach(function () {
     $this->unitService = app(UnitService::class);
+});
+
+test('can get units', function () {
+    Unit::factory()->count(5)->create();
+    $units = $this->unitService->getUnits();
+    expect($units)->toBeInstanceOf(Collection::class);
+    expect($units->count())->toBe(5);
+    expect($units->first())->toBeInstanceOf(Unit::class);
 });
 
 test('can create unit', function () {
