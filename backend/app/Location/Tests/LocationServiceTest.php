@@ -1,7 +1,6 @@
 <?php
 
 use App\Address\Dto\AttachAddressDTO;
-use App\Location\Dto\CreateContactPersonDTO;
 use App\Location\Dto\CreateLocationDTO;
 use App\Location\Dto\CreateOrAttachContactPersonsDTO;
 use App\Location\Dto\DeleteLocationDTO;
@@ -9,7 +8,6 @@ use App\Location\Dto\UpdateLocationDTO;
 use App\Location\Models\ContactPerson;
 use App\Location\Models\Location;
 use App\Location\Services\LocationService;
-use Illuminate\Console\Concerns\CreatesMatchingTest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

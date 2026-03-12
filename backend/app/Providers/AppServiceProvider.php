@@ -24,13 +24,14 @@ class AppServiceProvider extends ServiceProvider
         $this->domains = collect([
             'Address',
             'Location',
+            'Unit',
         ]);
         $this->domains->each(function ($domain) {
             $this->loadMigrationsFrom(__DIR__ . "/../{$domain}/Database/Migrations");
         });
         Relation::morphMap([
             'user' => \App\Models\User::class,
-            'location' => \App\Models\Location::class,
+            'location' => \App\Location\Models\Location::class,
         ]);
     }
 }

@@ -13,25 +13,6 @@ return new class extends Migration {
         return;
         // units
 
-        Schema::create("units", function (Blueprint $table) {
-            $table->id();
-            $table->string("standard_unit")->nullable();
-            $table->string("name")->unique();
-            $table->string("short_code")->unique();
-            $table->string("icon");
-            $table->unsignedTinyInteger("decimal_precision")->default(0);
-            $table->timestamps();
-        });
-
-        Schema::create("unit_conversions", function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("unit_id")->constrained()->restrictOnDelete();
-            $table->foreignId("to_unit_id")->constrained("units")->restrictOnDelete();
-            $table->unsignedInteger("value")->comment("1 unit = [value] to_unit");
-            $table->enum("precision", ["exact", "approx"])->default("exact");
-            $table->timestamps();
-        });
-
         Schema::create("items", function (Blueprint $table) {
             $table->id();
             $table->string("type")->default("inventory")->index(); // inventory, service, kit
