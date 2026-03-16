@@ -1,8 +1,9 @@
 import { Bell, User } from "lucide-react";
-import useScreen from "@/providers/ScreenProvider";
+import useScreen from "@/shared/contexts/screen.context";
 import { useEffect } from "react";
 import { motion } from "motion/react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/shared/components/ui/avatar"
+import useAuth from "@/core/auth/auth.context";
 
 function Home() {
   const { setTitle, setShowTitle } = useScreen();
@@ -13,16 +14,20 @@ function Home() {
   }, []);
 
   return (
-    <motion.div className='flex-grow-1 h-full m-1'>
+    <motion.div className='flex-grow-1 h-full flex flex-col m-1'>
       <Header />
+      <div className="flex-grow-1 h-full flex flex-col justify-center items-center">
+        <p>Coming Soon...</p>
+      </div>
     </motion.div>
   )
 }
 
 function Header() {
+  const { logout } = useAuth();
   return (
     <div className='flex justify-between items-baseline gap-2 my-2 mx-2'>
-      <Avatar className="w-14 h-14">
+      <Avatar className="w-14 h-14" onClick={logout}>
         <AvatarFallback>
           <User size={38} />
         </AvatarFallback>

@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { useInventoryScreen } from '@/screens/layouts/Inventory';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { MapPin, User, Phone } from 'lucide-react';
 import { Mail, Globe } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 
 function Locations() {
     const { setInventoryScreen } = useInventoryScreen();

@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import NavMenu from '@/screens/layouts/app/NavMenu.jsx';
-import useScreen from '@/providers/ScreenProvider.jsx';
+import useScreen from '@/shared/contexts/screen.context.jsx';
 import { motion, AnimatePresence } from "motion/react";
 
 const pageVariants = {

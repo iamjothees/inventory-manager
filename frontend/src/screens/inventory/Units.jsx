@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useInventoryScreen } from '@/screens/layouts/Inventory';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { IceCream2, Icon } from 'lucide-react';
 
 function Units() {

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { animate, motion } from "motion/react";
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { formatCurrency } from '@/utils/functions';
 import { useInventoryScreen } from '@/screens/layouts/Inventory';
 

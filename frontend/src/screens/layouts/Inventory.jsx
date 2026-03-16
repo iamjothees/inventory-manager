@@ -4,11 +4,11 @@ import {
     SidebarContent,
     SidebarFooter,
     useSidebar
-} from "@/components/ui/sidebar"
+} from "@/shared/components/ui/sidebar"
 import { Outlet, useLocation, useNavigate } from "react-router"
-import useScreen from "@/providers/ScreenProvider"
+import useScreen from "@/shared/contexts/screen.context"
 import { useEffect, createContext, useContext, useState } from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/shared/components/ui/button"
 import { Box, PanelRight, Plus, Scale, Warehouse } from "lucide-react"
 import { animate, motion } from "motion/react";
 
