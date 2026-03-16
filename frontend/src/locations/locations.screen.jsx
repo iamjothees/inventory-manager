@@ -1,50 +1,27 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useInventoryScreen } from '@/screens/layouts/Inventory';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { MapPin, User, Phone } from 'lucide-react';
 import { Mail, Globe } from 'lucide-react';
 import { Button } from '@/shared/components/ui/button';
+import { getLocations } from '@/locations/location.service';
 
 function Locations() {
     const { setInventoryScreen } = useInventoryScreen();
+    const [locations, setLocations] = useState([]);
+
+    useEffect(() => {
+        getLocations().then((res) => {
+            setLocations(res);
+        });
+    }, []);
 
     useEffect(() => {
         setInventoryScreen({ title: 'Locations', action: { label: 'Add Location', onClick: () => { } } });
     }, []);
     return (
         <div className='flex flex-col gap-2'>
-            {
-                Array.from({ length: 3 }).map((_, index) => (
-                    <LocationCard key={index} location={{
-                        name: 'Location ' + index,
-                        code: 'LOC' + index,
-                        address: {
-                            line1: 'Line 1 ' + index,
-                            line2: 'Line 2 ' + index,
-                            city: 'City ' + index,
-                            state: 'State ' + index,
-                            zipcode: 'Zip ' + index,
-                            country: 'Country ' + index,
-                            coordinates: {
-                                latitude: '11.030480326783893',
-                                longitude: '76.9045923781293',
-                            }
-                        },
-                        contactPersons: [
-                            {
-                                name: 'Contact ' + index,
-                                phone: 'Phone ' + index,
-                                email: 'Email ' + index,
-                            },
-                            {
-                                name: 'Contact ' + index,
-                                phone: 'Phone ' + index,
-                                email: 'Email ' + index,
-                            },
-                        ],
-                    }} />
-                ))
-            }
+            {locations.map((location) => <LocationCard key={location.id} location={location} />)}
         </div>
     )
 }

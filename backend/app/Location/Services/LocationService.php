@@ -52,9 +52,9 @@ class LocationService
         return $location;
     }
 
-    public function deleteLocation(DeleteLocationDTO $dto): void
+    public function deleteLocation(int $id): void
     {
-        Location::find($dto->id)->delete();
+        Location::findOrFail($id)->delete();
     }
 
     public function createContactPerson(CreateContactPersonDTO $dto): ContactPerson

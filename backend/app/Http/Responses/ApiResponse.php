@@ -3,25 +3,16 @@
 namespace App\Http\Responses;
 
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Http\Resources\Json\ResourceResponse;
 use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\Cookie;
 
 class ApiResponse implements Responsable
 {
-    protected ?array $data = null;
-    protected int $httpCode = 200;
     protected ?Cookie $cookie = null;
 
-    public function __construct(?array $data = null, int $httpCode = 200)
+    public function __construct(protected $data = null, protected int $httpCode = 200)
     {
-        $this->httpCode = $httpCode;
-
-        if ($data !== null) {
-            if (Arr::isAssoc($data) === false){
-                throw new \Exception("Data must be an associative array or null");
-            }
-            $this->data = $data;
-        }
     }
 
     public function withCookie(Cookie $cookie): self

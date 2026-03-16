@@ -7,7 +7,7 @@ function DevLogin() {
     const { login } = useAuth();
     const navigate = useNavigate();
     const users = [
-        { email: 'test@example.com', password: 'password' },
+        { username: import.meta.env.VITE_DEV_LOGIN_USERNAME, password: import.meta.env.VITE_DEV_LOGIN_PASSWORD },
     ];
 
     const handleLogin = (user) => {
@@ -25,7 +25,7 @@ function DevLogin() {
         <div className="flex flex-col">
             {
                 users.map(user => (
-                    <Button key={user.email} type="button" onClick={() => handleLogin(user)}>Login AS {user.email}</Button>
+                    <Button key={user.username} type="button" onClick={() => handleLogin(user)}>Login AS {user.username}</Button>
                 ))
             }
         </div>

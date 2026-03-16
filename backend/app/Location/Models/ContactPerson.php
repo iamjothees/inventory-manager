@@ -22,7 +22,7 @@ class ContactPerson extends Model
 
     public function locations(): BelongsToMany
     {
-        return $this->belongsToMany(Location::class)
+        return $this->belongsToMany(Location::class, 'location_contact_person')
                     ->using(LocationContactPerson::class);
     }
 }

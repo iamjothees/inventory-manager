@@ -3,6 +3,7 @@
 namespace App\Location\Database\Factories;
 
 use App\Location\Models\ContactPerson;
+use App\Location\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,8 @@ class ContactPersonFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'phone' => $this->faker->phoneNumber,
+            'email' => $this->faker->email,
         ];
     }
 }

@@ -8,5 +8,7 @@ class CreateContactPersonDTO extends Data
 {
     public function __construct(
         public string $name,
+        public ?string $email,
+        public ?string $phone,
     ) {}
 }

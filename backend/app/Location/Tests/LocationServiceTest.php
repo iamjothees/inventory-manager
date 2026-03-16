@@ -70,8 +70,7 @@ test('update location', function () {
 
 test('delete location', function () {
     $location = Location::factory()->create();
-    $dto = DeleteLocationDTO::from($location);
-    $this->locationService->deleteLocation($dto);
+    $this->locationService->deleteLocation($location->id);
     expect(Location::find($location->id))->toBeNull();
 });
 
